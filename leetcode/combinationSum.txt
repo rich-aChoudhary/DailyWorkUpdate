@@ -1,0 +1,40 @@
+class Solution:
+    def combinationSum(self, candidates: List[int], target: int) -> List[List[int]]:
+        """
+        res=[]
+
+        def comSum(i,cur,total):
+            if total==target:
+                res.append(cur.copy())
+                return
+
+            if i>=len(candidates) or total>target:
+                return
+
+            cur.append(candidates[i])
+            comSum(i,cur,total+candidates[i])
+            cur.pop()
+            comSum(i+1,cur,total)
+
+        comSum(0,[],0)
+        return res
+
+        """
+        #optimal
+        res=[]
+        candidates.sort()
+
+        def comSum(i,cur,total):
+            if total==target:
+                res.append(cur.copy())
+                return
+            
+            for j in range(i,len(candidates)):
+                if total+candidates[j]>target:
+                    return
+                cur.append(candidates[j])
+                comSum(j,cur,total+candidates[j])
+                cur.pop()
+
+        comSum(0,[],0)
+        return res

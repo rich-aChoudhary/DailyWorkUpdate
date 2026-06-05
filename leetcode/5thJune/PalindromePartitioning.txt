@@ -1,0 +1,32 @@
+class Solution:
+    def partition(self, s: str) -> List[List[str]]:
+        res=[]
+        
+        def part(s,path):
+            if not s:
+                res.append(path.copy())
+                return
+
+            for i in range(len(s)):
+                prefix=s[:i+1]
+                remaining=s[i+1:]
+            
+                if pal(prefix):
+                    path.append(prefix)
+                    part(remaining,path)
+                    path.pop()
+
+        def pal(s):
+            l=0
+            r=len(s)-1
+
+            while l<r:
+                if s[l]==s[r]:
+                    l+=1
+                    r-=1
+                else:
+                    return False
+            return True
+
+        part(s,[])
+        return res

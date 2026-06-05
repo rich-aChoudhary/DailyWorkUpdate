@@ -1,0 +1,17 @@
+class Solution:
+    def permute(self, nums: List[int]) -> List[List[int]]:
+        res=[]
+
+        def per(nums,path):
+            if len(nums)==0:
+                res.append(path)
+                return
+
+            for i in range(len(nums)):
+                newIp=nums[:i]+nums[i+1:]
+                newOp=path+[nums[i]]
+
+                per(newIp,newOp)
+
+        per(nums,[])
+        return res

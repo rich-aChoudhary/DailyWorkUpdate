@@ -1,0 +1,17 @@
+class Solution:
+    def generateParenthesis(self, n: int) -> List[str]:
+        res=[]
+
+        def solve(openB,closeB,op):
+            if openB==0 and closeB==0:
+                res.append(op)
+                return
+
+            if openB>0:
+                solve(openB-1,closeB,op+"(")
+
+            if closeB>openB:
+                solve(openB,closeB-1,op+")")
+
+        solve(n,n,"")
+        return res

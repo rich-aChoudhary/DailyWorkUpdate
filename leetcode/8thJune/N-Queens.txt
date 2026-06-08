@@ -1,0 +1,46 @@
+class Solution:
+    def solveNQueens(self, n: int) -> List[List[str]]:
+        res=[]
+        board=[["." for _ in range(n)]for _ in range(n)]
+
+        def solve(c):
+            if c==n:
+                copy=["".join(r) for r in board]
+                res.append(copy)
+                return
+
+            for r in range(n):
+                if isSafe(r,c):
+                    board[r][c]="Q"
+                    solve(c+1)
+                    board[r][c]="."
+
+        def isSafe(r,c):
+            #current row
+            for j in range(c):
+                if board[r][j]=="Q":
+                    return False
+
+            #left-upper diagonal
+            i,j=r,c
+            while i>=0 and j>=0:
+                if board[i][j]=="Q":
+                    return False
+                i-=1
+                j-=1
+
+            #left-lower diagonal
+            i,j=r,c
+            while i<n and j>=0:
+                if board[i][j]=="Q":
+                    return False
+                i+=1
+                j-=1
+
+            return True
+
+        solve(0)
+        return res
+       
+            
+            

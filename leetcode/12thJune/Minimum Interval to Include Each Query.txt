@@ -1,0 +1,44 @@
+class Solution:
+    def minInterval(self, intervals: List[List[int]], queries: List[int]) -> List[int]:
+        """ Brute Force : O(mn)
+        res=[]
+        
+        for q in queries:
+            minL=float("inf")  #use inf when value is always positive otherwise min will always be 0 
+
+            for start,end in intervals:
+                if start<=q<=end:
+                    minL=min(minL,end-start+1)
+
+            if minL==float("inf"):
+                res.append(-1)
+            else:
+                res.append(minL)
+
+        return res
+        """
+
+        #Heap
+        intervals.sort()
+
+        que=sorted([(q,i) for i,q in enumerate(queries)])
+
+        q_ind=0
+        heap=[]
+        res=[-1] * len(queries)
+        int_idx=0
+        for q,q_ind in que:
+            while int_idx < len(intervals) and intervals[int_idx][0]<=q:
+                start,end=intervals[int_idx]
+                l=end-start+1
+                heapq.heappush(heap,(l,end))
+                int_idx+=1
+
+            while heap and heap[0][1]<q:
+                heapq.heappop(heap)
+
+            if heap:
+                res[q_ind]=heap[0][0]
+
+        return res
+

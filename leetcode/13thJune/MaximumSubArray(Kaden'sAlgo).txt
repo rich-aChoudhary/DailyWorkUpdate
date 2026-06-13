@@ -1,0 +1,32 @@
+class Solution:
+    def maxSubArray(self, nums: List[int]) -> int:
+        maxSum=float("-inf")
+        sum=0
+
+        for i in range(len(nums)):
+            sum+=nums[i]
+            maxSum=max(sum,maxSum)
+            
+            if sum<0:
+                sum=0
+        
+        return maxSum
+
+        """ is subarray with max sum is to printmaxSum=float("-inf")
+        sum=0
+        ansS=-1
+        ansE=-1
+
+        for i in range(len(nums)):
+            if sum==0:
+                start=i
+            sum+=nums[i]
+            if sum>maxSum:
+                maxSum=sum
+                ansS=start
+                ansE=i
+            
+            if sum<0:
+                sum=0
+        print(nums[ansS:ansE+1])
+        return maxSum  """

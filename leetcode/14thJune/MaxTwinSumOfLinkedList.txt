@@ -1,0 +1,48 @@
+# Definition for singly-linked list.
+# class ListNode:
+#     def __init__(self, val=0, next=None):
+#         self.val = val
+#         self.next = next
+class Solution:
+    def pairSum(self, head: Optional[ListNode]) -> int:
+        """arr=[]
+        maxSum=0
+
+        while head:
+            arr.append(head.val)
+            head=head.next
+            
+        n=len(arr)
+        for i in range(n//2):
+            sum=arr[i]+arr[n-i-1]
+            maxSum=max(sum,maxSum)
+
+        return maxSum """
+        slow = fast = head
+
+        # Find middle
+        while fast and fast.next:
+            slow = slow.next
+            fast = fast.next.next
+
+        # Reverse second half
+        prev = None
+        curr = slow
+
+        while curr:
+            nxt = curr.next
+            curr.next = prev
+            prev = curr
+            curr = nxt
+
+        # Calculate twin sums
+        first = head
+        second = prev
+        maxSum = 0
+
+        while second:
+            maxSum = max(maxSum, first.val + second.val)
+            first = first.next
+            second = second.next
+
+        return maxSum

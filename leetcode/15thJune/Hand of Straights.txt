@@ -1,0 +1,34 @@
+class Solution:
+    def isNStraightHand(self, hand: List[int], groupSize: int) -> bool:
+        H=len(hand)
+
+        if H%groupSize!=0:
+            return False
+
+        fre={}
+
+        for v in hand:
+            fre[v]=fre.get(v,0)+1
+
+        heap=list(fre.keys())
+        heapify(heap)
+
+        while heap:
+            start=heap[0]
+            for card in range(start,start+groupSize):
+                if fre.get(card,0)==0:
+                    return False
+
+                fre[card]-=1
+
+                if fre[card]==0:
+                    if card!=heap[0]:
+                        return False
+
+                    heapq.heappop(heap)
+
+        return True
+
+
+            
+

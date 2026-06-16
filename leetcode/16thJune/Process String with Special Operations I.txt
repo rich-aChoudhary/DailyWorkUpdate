@@ -1,0 +1,18 @@
+class Solution:
+    def processStr(self, s: str) -> str:
+        res=""
+
+        for char in s:
+            if char.islower():
+                res+=char
+
+            elif char=='*':
+                if res:
+                    res=res[:-1]
+
+            elif char=='#':
+                res+=res
+            
+            else:
+                res=res[::-1]
+        return res

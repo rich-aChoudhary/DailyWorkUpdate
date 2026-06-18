@@ -1,0 +1,31 @@
+class Solution:
+    def rob(self, nums: List[int]) -> int:
+        """
+        #recursion + memoization
+        n=len(nums)
+
+        def solve(nums,i):
+            dp={}
+            if i>=n:
+                return 0
+
+            if i in dp:
+                return dp[i]
+
+            steal=nums[i]+solve(nums,i+2)
+            skip=solve(nums,i+1)
+            dp[i]=max(skip,steal)
+            return dp[i]
+        return solve(nums,0)   """
+
+        n=len(nums)
+
+        dp=[0]*(n+1)
+
+        dp[0]=0
+        dp[1]=nums[0]
+
+        for i in range(2,n+1):
+            dp[i]=max(nums[i-1]+dp[i-2],dp[i-1])
+
+        return dp[n]

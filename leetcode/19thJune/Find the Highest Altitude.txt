@@ -1,0 +1,22 @@
+class Solution:
+    def largestAltitude(self, gain: List[int]) -> int:
+        """ T and S : O(n)
+        n=len(gain)
+        arr=[0]*(n+1)
+        for i in range(1,n+1):
+            arr[i]=arr[i-1]+gain[i-1]
+
+        print(arr)
+
+        return max(arr) """
+
+        #Optimized T : O(n) , S : O(1) never need to store the whole altitude array,keep updating the current altitude and the maximum altitude encountered
+
+        alt=0
+        maxAlt=0
+
+        for g in gain:
+            alt+=g
+            maxAlt=max(alt,maxAlt)
+
+        return maxAlt

@@ -1,0 +1,25 @@
+class Solution:
+    def countCharacters(self, words: List[str], chars: str) -> int:
+        frCh={}
+        for ch in chars:
+            frCh[ch]=frCh.get(ch,0)+1
+
+        res=0
+
+        for word in words:
+            frW={}
+            for c in word:
+                frW[c]=frW.get(c,0)+1
+            valid = True
+
+            for c in frW:
+
+                if frW[c] > frCh.get(c, 0):
+                    valid = False
+                    break
+
+            if valid:
+                res += len(word)
+
+        return res
+            

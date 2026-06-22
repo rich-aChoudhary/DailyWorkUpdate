@@ -1,0 +1,15 @@
+class Solution:
+    def maxNumberOfBalloons(self, text: str) -> int:
+        fq={}
+        for ch in text:
+            fq[ch]=fq.get(ch,0)+1
+
+        res=len(text)
+
+        res=min(fq.get('b',0),
+                fq.get('a',0),
+                fq.get('l',0)//2,
+                fq.get('o',0)//2,
+                fq.get('n',0))
+
+        return res

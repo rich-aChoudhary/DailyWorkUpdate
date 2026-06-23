@@ -1,0 +1,13 @@
+class Solution:
+    def reverseWords(self, s: str) -> str:
+        st=[s.split()]
+        words = st[0]
+
+        left, right = 0, len(words) - 1
+
+        while left < right:
+            words[left], words[right] = words[right], words[left]
+            left += 1
+            right -= 1
+
+        return " ".join(st[0])

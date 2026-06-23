@@ -1,0 +1,71 @@
+class Solution:
+    def coinChange(self, coins: List[int], amount: int) -> int:
+        """
+        n=len(coins)
+        dp=[-1]*(n+1)
+
+        def solve(amount):
+            
+            if amount == 0:
+                return 0
+
+            if amount < 0:
+                return float('inf')
+
+            ans = float('inf')
+
+            for coin in coins:
+                ans = min(ans,1 + solve(amount - coin))
+
+            return ans  
+
+        ans = solve(amount)
+
+        if ans == float('inf'):
+            return -1
+
+        return ans  """
+
+        """ recursion+memoization
+        n=len(coins)
+        dp=[-1]*(amount+1)
+
+        def solve(amount):
+            if amount == 0:
+                return 0
+
+            if amount < 0:
+                return float('inf')
+
+            if dp[amount]!=-1:
+                return dp[amount]
+
+            ans = float('inf')
+
+            for coin in coins:
+                ans = min(ans,1 + solve(amount - coin))
+            dp[amount]=ans
+            return dp[amount]  
+
+        dp[amount] = solve(amount)
+
+        if dp[amount] == float('inf'):
+            return -1
+
+        return dp[amount] """
+
+        #dynamic programming
+        dp=[float('inf')]*(amount+1)
+
+        dp[0]=0
+
+        for a in range(1,amount+1):
+            for coin in coins:
+                if a-coin>=0:
+                    dp[a]=min(dp[a],1+dp[a-coin])
+
+        if dp[amount]==float(inf):
+            return -1
+
+        return dp[amount]
+        

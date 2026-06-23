@@ -1,0 +1,67 @@
+class Solution:
+    def numDecodings(self, s: str) -> int:
+
+        """ Recursion (TLE)
+        def solve(i,st):
+            n=len(st)
+
+            if i==n:
+                return 1 #found one split
+
+            if st[i]=='0':
+                return 0
+
+            result=solve(i+1,st)
+
+            if (i+1)<n and (st[i]=='1' or ( st[i]=='2' and st[i+1]<='6')):
+                result+=solve(i+2,st)
+
+            return result
+
+        return solve(0,s)  """
+
+        """
+        # Recursion + Memoization (run all)
+        n=len(s)
+        dp=[-1]*(n+1)
+        def solve(i,st):
+            n=len(st)
+
+            if dp[i]!=-1:
+                return dp[i]
+
+            if i==n:
+                dp[i]=1 
+                return dp[i]#found one split
+
+            if st[i]=='0':
+                dp[i]=0
+                return dp[i]
+
+            result=solve(i+1,st)
+
+            if (i+1)<n and (st[i]=='1' or ( st[i]=='2' and st[i+1]<='6')):
+                result+=solve(i+2,st)
+
+            dp[i]=result 
+            return dp[i]
+
+        return solve(0,s)  """
+
+        #bottom up(DP)
+        n=len(s)
+        dp=[0]*(n+1)
+
+        dp[n]=1
+
+        for i in range(n-1,-1,-1):
+            if s[i]=='0':
+                dp[i]=0 
+
+            else:
+                dp[i]=dp[i+1]
+
+                if (i+1)<n and (s[i]=='1' or ( s[i]=='2' and s[i+1]<='6')):
+                    dp[i]+=dp[i+2]
+
+        return dp[0]

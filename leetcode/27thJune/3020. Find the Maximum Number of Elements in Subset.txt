@@ -1,0 +1,14 @@
+class Solution:
+    def maximumLength(self, a: List[int]) -> int:
+        z = Counter(a)
+        res = z[1]-(z[1]%2==0)
+        for v in z:
+            k = 0
+            while v>1:
+                if z[v]>1: k += 2; v *= v
+                if z[v]==1: k += 1; break
+                if z[v]==0: k -= 1; break
+
+            res = max(res,k)
+
+        return res

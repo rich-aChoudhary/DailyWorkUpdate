@@ -1,0 +1,63 @@
+class Solution:
+    def largestMultipleOfThree(self, digits: List[int]) -> str:
+        digits.sort()
+        total=sum(digits)
+        rem=total%3
+
+        #remove one smallest digit with remainder 1
+        if rem==1:
+            found=False
+            for i in range(len(digits)):
+                if digits[i]%3==1:
+                    digits.pop(i)
+                    found=True
+                    break
+
+            #otherwise remove two smallest digits with remainder 2
+            if not found:
+                idx=[]
+                for i in range(len(digits)):
+                    if digits[i]%3==2:
+                        idx.append(i)
+
+                if len(idx)<2:
+                    return ""
+
+                digits.pop(idx[1])
+                digits.pop(idx[0])
+
+            #remove one smallest digit with remainder 2
+        elif rem==2:
+            found=False
+
+            for i in range(len(digits)):
+                if digits[i]%3==2:
+                    digits.pop(i)
+                    found=True
+                    break
+
+        #otherwise remove two smallest digits with remainder 1
+            if not found:
+                idx=[]
+                for i in range(len(digits)):
+                    if digits[i]%3==1:
+                        idx.append(i)
+
+                if len(idx)<2:
+                    return ""
+
+                digits.pop(idx[1])
+                digits.pop(idx[0])
+
+        if not digits:
+            return ""
+
+        #arrange digits in asccending order
+        digits.sort(reverse=True)
+        if digits[0]==0:
+            return "0"
+
+        return "".join(map(str,digits))
+
+
+

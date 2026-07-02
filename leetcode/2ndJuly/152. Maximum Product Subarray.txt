@@ -1,0 +1,18 @@
+class Solution:
+    def maxProduct(self, nums: List[int]) -> int:
+        lp=1
+        rp=1
+        n=len(nums)
+        res=float('-inf')
+
+        for i in range(n):
+            lp=lp*nums[i]
+            rp=rp*nums[n-i-1]
+
+            res=max(res,lp,rp)
+            if lp==0:
+                lp=1
+            if rp==0:
+                rp=1
+
+        return res

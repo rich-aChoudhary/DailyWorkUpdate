@@ -1,0 +1,19 @@
+class Solution:
+    def findTwoElement(self, arr):
+        # code here
+        res=[]
+        
+        for num in arr:
+            idx=abs(num)-1
+            
+            if arr[idx]<0:
+                res.append(abs(num))
+            else:
+                arr[idx]*=-1
+                
+        for i in range(len(arr)):
+            if arr[i]>0:
+                res.append(i+1)
+                break
+            
+        return res

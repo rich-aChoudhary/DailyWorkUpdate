@@ -1,0 +1,20 @@
+class Solution:
+    def findRestaurant(self, list1: List[str], list2: List[str]) -> List[str]:
+        l1={}
+        for i,word1 in enumerate(list1):
+            l1[word1]=i
+
+        minSum=float('inf')
+        res=[]
+
+        for j,word2 in enumerate(list2):
+            if word2 in l1:
+                curSum=l1[word2]+j
+
+                if curSum<minSum:
+                    minSum=curSum
+                    res=[word2]
+                elif curSum==minSum:
+                    res.append(word2)
+        return res
+

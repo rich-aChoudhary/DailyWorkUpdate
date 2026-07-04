@@ -1,0 +1,7 @@
+class Solution:
+    def isMiddleElementUnique(self, nums: list[int]) -> bool:
+        n=(len(nums)//2)
+        for i in range(len(nums)):
+            if i!=n and nums[i]==nums[n]: 
+                return False
+        return True

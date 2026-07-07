@@ -1,0 +1,21 @@
+class Solution:
+    def countDigitOne(self, n: int) -> int:
+        if n<0:
+            return 0
+        count=0
+        factor=1
+
+        while factor<=n:
+            high=n//(factor*10)
+            curr=(n//factor)%10
+            low=n%factor
+
+            count+=high*factor
+
+            if curr==1:
+                count+=low+1
+            elif curr>1:
+                count+=factor
+            
+            factor*=10
+        return count

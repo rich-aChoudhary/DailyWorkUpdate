@@ -1,0 +1,14 @@
+class Solution:
+    def sumAndMultiply(self, n: int) -> int:
+        st=""
+        sumT=0
+        if n==0:
+            return 0
+        while n:
+            digit=n%10
+            if digit!=0:
+                st+=str(digit) 
+            sumT+=digit
+            n//=10
+        return int(st[::-1])*sumT
+        

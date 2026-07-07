@@ -11,4 +11,19 @@ class Solution:
             sumT+=digit
             n//=10
         return int(st[::-1])*sumT
+
+
+class Solution:
+    def sumAndMultiply(self, n: int) -> int:
+        add = 0
+        x = 0
+        num =1
+        while n>0:
+            rem = n%10
+            if rem:
+                add +=rem
+                x = rem*num+x
+                num *=10
+            n = n//10
+        return x*add
         

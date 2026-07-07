@@ -1,0 +1,36 @@
+class Solution:
+    def nextGreaterElement(self, nums1: List[int], nums2: List[int]) -> List[int]:
+        """
+        #Brute Force O(len(nums1) × len(nums2))
+
+        res=[-1]*(len(nums1))
+        map2={}
+        for i,num in enumerate(nums2):
+            map2[num]=i
+
+        for i,num in enumerate(nums1):
+            idx=map2[num]
+            for j in range(idx+1,len(nums2)):
+                if nums2[j]>num:
+                    res[i]=nums2[j]
+                    break
+        return res """
+
+        #monotonic stack
+        nextGreater={}
+        stack=[]
+
+        for num in nums2:
+            while stack and num>stack[-1]:
+                nextGreater[stack.pop()]=num
+            stack.append(num)
+        
+        while stack:
+            nextGreater[stack.pop()]=-1
+
+        res = []
+
+        for num in nums1:
+            res.append(nextGreater[num])    
+        return res    
+

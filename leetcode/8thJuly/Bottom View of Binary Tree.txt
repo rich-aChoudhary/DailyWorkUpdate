@@ -1,0 +1,32 @@
+'''
+Definition for Node
+class Node:
+    def __init__(self, val):
+        self.data = val
+        self.right = None
+        self.left = None
+'''
+
+class Solution:
+    def bottomView(self, root):
+        # code here
+        res=[]
+        
+        if not root:
+            return ans
+            
+        viewMap={}
+        q=[(root,0)]
+        while q:
+            node,key=q.pop(0)
+            viewMap[key]=node.data
+            if node.left:
+                q.append((node.left,key-1))
+            if node.right:
+                q.append((node.right,key+1))
+        for key,val in sorted(viewMap.items()):
+            res.append(val)
+        return res
+        
+        
+            

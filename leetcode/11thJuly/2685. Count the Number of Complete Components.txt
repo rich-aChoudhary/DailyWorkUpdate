@@ -1,0 +1,31 @@
+class Solution:
+    def countCompleteComponents(self, n: int, edges: List[List[int]]) -> int:
+        adj=defaultdict(list)
+        for st,en in edges:
+            adj[st].append(en)
+            adj[en].append(st)
+
+        res=0
+        vis=[False]*n
+
+        for i,state in enumerate(vis):
+            if not state:
+                node,edge=0,0
+
+                def dfs(x):
+                    nonlocal node,edge
+                    edge+=len(adj[x])
+                    node+=1
+                    vis[x]=True
+
+                    for nei in adj[x]:
+                        if not vis[nei]:
+                            dfs(nei)
+                dfs(i)
+                res+=edge==node*(node-1)
+        return res
+
+
+
+                
+    

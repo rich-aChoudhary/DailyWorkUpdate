@@ -1,0 +1,27 @@
+class Solution:
+    def findOrder(self, numCourses: int, prerequisites: List[List[int]]) -> List[int]:
+        mp={i:[] for i in range(numCourses)}
+
+        for c,pr in prerequisites:
+            mp[c].append(pr)
+        visited=set()
+        res=[]
+        def dfs(i):
+            if i in visited:
+                return False
+            if mp[i]==[]:
+                if i not in res:
+                    res.append(i)
+                return True
+            visited.add(i)
+            for pr in mp[i]:
+                if not dfs(pr):
+                    return 
+            visited.remove(i)
+            mp[i]=[]
+            if i not in res:
+                res.append(i)
+            return True
+        for i in range(numCourses):
+            if not dfs(i):return []
+        return res

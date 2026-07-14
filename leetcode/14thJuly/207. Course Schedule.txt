@@ -1,0 +1,23 @@
+class Solution:
+    def canFinish(self, numCourses: int, prerequisites: List[List[int]]) -> bool:
+        mapCourse={i:[] for i in range(numCourses)}
+        for c,pr in prerequisites:
+            mapCourse[c].append(pr)
+        visited=set()
+        def dfs(i):
+            if i in visited:
+                return False  #cant be completed since cycle
+            elif mapCourse[i]==[]:
+                return True   #i is not dependent on any other so can be completed
+            else:
+                visited.add(i)
+            for pr in mapCourse[i]:
+                if not dfs(pr): return False
+            visited.remove(i)
+            mapCourse[i]=[]
+            return True
+        for i in range(numCourses):
+            if not dfs(i):
+                return False
+        return True
+            

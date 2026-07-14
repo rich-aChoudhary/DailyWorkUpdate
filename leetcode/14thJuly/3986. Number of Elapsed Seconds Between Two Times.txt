@@ -1,0 +1,19 @@
+class Solution:
+    def secondsBetweenTimes(self, startTime: str, endTime: str) -> int:
+        """
+        st=startTime.split(':')
+        end=endTime.split(':')
+
+        s=int(st[0])*3600+int(st[1])*60+int(st[2])
+        e=int(end[0])*3600+int(end[1])*60+int(end[2])
+
+        return e-s  """
+
+        def secConversion(time):
+            hr,min,sec=map(int,time.split(':'))
+            return hr*3600+min*60+sec
+
+        return secConversion(endTime)-secConversion(startTime)
+        
+
+

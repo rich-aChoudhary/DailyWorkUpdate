@@ -1,0 +1,21 @@
+class Solution:
+    def gcdSum(self, nums: list[int]) -> int:
+        def gcd(x,y):
+            return x if y==0 else gcd(y,x%y)
+
+        prefixGcd=[-1]*len(nums)
+        mx=nums[0]
+
+        for i in range(len(nums)):
+            mx=max(nums[i],mx)
+            prefixGcd[i]=gcd(nums[i],mx)
+
+        prefixGcd.sort()
+        i,j=0,len(nums)-1
+        sumGcd=0
+        while i<j:
+            sumGcd+=gcd(prefixGcd[i],prefixGcd[j])
+            i+=1
+            j-=1
+
+        return sumGcd

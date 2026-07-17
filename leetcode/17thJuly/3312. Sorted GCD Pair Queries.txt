@@ -1,0 +1,41 @@
+# class Solution:
+#     def gcdValues(self, nums: List[int], queries: List[int]) -> List[int]:
+#         def gcd(x,y):
+#             return x if y==0 else gcd(y,x%y)
+
+#         gcdPairs=[]
+#         for i in range(len(nums)):
+#             for j in range(i+1,len(nums)):
+#                 gcdPairs.append(gcd(nums[i],nums[j]))
+
+#         gcdPairs.sort()
+        
+#         res=[]
+#         for idx in queries:
+#             res.append(gcdPairs[idx])
+        
+#         return res
+class Solution:
+    def gcdValues(self, nums: List[int], queries: List[int]) -> List[int]:
+        m = max(nums)
+        cnt = [0] * (m + 1)
+        for num in nums:
+            cnt[num] += 1
+        for i in range(1, m + 1):
+            for j in range(i * 2, m + 1, i):
+                cnt[i] += cnt[j]
+        for i in range(1, m + 1):
+            cnt[i] = cnt[i] * (cnt[i] - 1) // 2
+        for i in range(m, 0, -1):
+            for j in range(i * 2, m + 1, i):
+                cnt[i] -= cnt[j]
+        for i in range(1, m + 1):
+            cnt[i] += cnt[i - 1]
+        ans = []
+        for q in queries:
+            q += 1
+            pos = bisect_left(cnt, q)
+            ans.append(pos)
+        return ans
+
+

@@ -1,0 +1,7 @@
+class Solution:
+    def maximumValue(self, n: int, s: int, m: int) -> int:
+        i = n//2
+        if i == 0:
+            return s
+
+        return s + i * m - (i-1)

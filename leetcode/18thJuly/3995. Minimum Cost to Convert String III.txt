@@ -1,0 +1,29 @@
+class Solution:
+    def minCost(self, source: str, target: str, rules: list[list[str]], costs: list[int]) -> int:
+        if len(source)!=len(target):
+            return -1
+
+        n=len(source)
+        val=10**18
+        dp=[val]*(n+1)
+        dp[n]=0
+        for i in range(n-1,-1,-1):
+            if source[i]==target[i]:
+                dp[i]=dp[i+1]
+            for (p,r),base in zip(rules,costs):
+                L=len(p)
+                if i+L>n:
+                    continue
+                if target[i:i+L]!=r:
+                    continue
+                ok=True
+                stars=0
+                for k in range(L):
+                    if p[k]=='*':
+                        stars+=1
+                    elif p[k]!=source[i+k]:
+                        ok=False
+                        break
+                if ok:
+                    dp[i]=min(dp[i],base+stars+dp[i+L])
+        return -1 if dp[0]==val else dp[0]

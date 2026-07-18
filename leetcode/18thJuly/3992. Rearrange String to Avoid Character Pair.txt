@@ -1,0 +1,11 @@
+class Solution:
+    def rearrangeString(self, s: str, x: str, y: str) -> str:
+        cntx=s.count(x)
+        cnty=s.count(y)
+
+        ans=[]
+
+        for ch in s:
+            if ch!=x and ch!=y:
+                ans.append(ch)
+        return y*cnty+"".join(ans)+x*cntx

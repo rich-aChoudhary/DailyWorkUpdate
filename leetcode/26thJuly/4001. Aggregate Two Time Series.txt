@@ -1,0 +1,17 @@
+class Solution:
+    def aggregateTimeSeries(self, series1: list[list[int]], series2: list[list[int]]) -> list[list[int]]:
+        t=sorted({x for x,_ in series1} | {x for x, _ in series2})
+        ans=[]
+        i=j=0
+        for time in t:
+            while i<len(series1) and series1[i][0]<time:
+                i+=1
+            while j<len(series2) and series2[j][0]<time:
+                j+=1
+
+            v1=series1[i][1] if i<len(series1) else 0
+            v2=series2[j][1] if j<len(series2) else 0
+            ans.append([time,v1+v2])
+        return ans
+                    
+       

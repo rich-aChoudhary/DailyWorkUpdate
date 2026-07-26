@@ -1,0 +1,43 @@
+class Solution:
+    def minCost(self, m: int, n: int, penalty: List[List[int]]) -> int:
+        INF=10**30
+        dist=[[[INF]*2 for _ in range(n)] for _ in range(m)]
+        start=(1)*(1)
+        dist[0][0][0]=start
+        pq=[(start,0,0,0)]
+        dirs=[(-1,0),(1,0),(0,-1),(0,1)]
+        while pq:
+            cost,x,y,p=heappop(pq)
+            if cost!=dist[x][y][p]:
+                continue
+            if x==m-1 and y==n-1:
+                return cost
+            np=1-p
+
+            nc=cost+penalty[x][y]
+            if nc<dist[x][y][np]:
+                dist[x][y][np]=nc
+                heappush(pq,(nc,x,y,np))
+            for dx,dy in dirs:
+                nx=x+dx
+                ny=y+dy
+
+                if not(0<=nx<m and 0<=ny<n):
+                    continue
+                add=(nx+1)*(ny+1)
+                ok=False
+                if p==0:
+                    if(dx,dy)==(1,0) or (dx,dy)==(0,1):
+                        ok=True
+                else:
+                    if(dx,dy)==(-1,0) or (dx,dy)==(0,-1):
+                        ok=True
+                if ok:
+                    nc=cost+add
+                else:
+                    nc=cost+add+penalty[x][y]
+                if nc<dist[nx][ny][np]:
+                    dist[nx][ny][np]=nc
+                    heappush(pq,(nc,nx,ny,np))
+        return -1
+                    

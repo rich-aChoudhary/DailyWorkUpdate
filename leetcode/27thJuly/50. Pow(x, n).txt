@@ -1,0 +1,13 @@
+class Solution:
+    def myPow(self, x: float, n: int) -> float:
+        if n==0:
+            return 1
+        pro=1.0
+        N=abs(n)
+        while N>0:
+            if N%2==1:
+                pro=pro*x            
+            x=x*x
+            N//=2
+
+        return pro if n>0 else 1.0/pro

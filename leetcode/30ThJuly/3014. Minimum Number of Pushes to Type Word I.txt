@@ -1,0 +1,12 @@
+class Solution:
+    def minimumPushes(self, word: str) -> int:
+        n=len(word)
+        itr=n//8
+        rem=n%8
+        i=1
+        ans=0
+        while i<=itr:
+            ans+=8*i
+            i+=1
+
+        return ans+i*rem

@@ -1,0 +1,13 @@
+class Solution:
+    def minimumPushes(self, word: str) -> int:
+        mp = {}
+        for c in word: mp[c] = mp.get(c, 0) +1
+        mp = dict(sorted(mp.items(), key=lambda item: -item[1]))
+        itr = len(mp)//8
+        rem =  len(mp)%8
+        i,j,ans = 1,1,0
+        for key, value in mp.items():
+            ans += value*i
+            if j%8==0: i+=1
+            j+=1
+        return ans
